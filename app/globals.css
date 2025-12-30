@@ -1,26 +1,21 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #873e23;     /* Brown */
+  --color-secondary: #808080;   /* Gray */
+  --color-accent: #D7CCC8;      /* Light beige/brown */
+  --color-neutral: #FFFFFF;     /* White */
+  --color-background: #FAF9F6;  /* Off-white/beige background */
+  --color-muted: #9E9E9E;       /* Medium gray */
+  --color-border: #E0E0E0;      /* Light gray border */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-primary antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.product-card {
+  @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl;
 }
