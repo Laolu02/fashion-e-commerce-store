@@ -18,7 +18,8 @@ export async function loginAction(formData: FormData) {
   });
 
   if (result?.error) {
-    return { error: result.error };
+    //return { error: result.error };
+    redirect('/login?error=' + encodeURIComponent(result.error));
   }
 
   redirect('/');
@@ -41,8 +42,10 @@ export async function registerAction(formData: FormData) {
     redirect('/');
   } catch (error: any) {
     if (error.code === 'P2002') {
-      return { error: 'Email already exists' };
+      //return { error: 'Email already exists' };
+      redirect('/register?error=' + encodeURIComponent('Email already exists')); // Can change it later
     }
-    return { error: 'Registration failed' };
+    //return { error: 'Registration failed' };
+    redirect('/register?error=' + encodeURIComponent('Registration failed')); // Can change it later
   }
 }
