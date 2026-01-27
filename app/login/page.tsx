@@ -1,5 +1,7 @@
 // app/login/page.tsx
-import { FcGoogle } from "react-icons/fc";
+'use client';
+
+{/*import { FcGoogle } from "react-icons/fc";
 import { loginAction } from '@/app/actions/auth';
 import Link from 'next/link';
 
@@ -91,6 +93,181 @@ export default function LoginPage() {
                 <h2 className="hidden md:block text-sm uppercase tracking-[0.2em] font-black mb-8 text-gray-400 text-center">
                   Quick Access
                 </h2>
+                <div className="space-y-4">
+                  <button className="w-full flex items-center justify-center gap-3 px-6 py-4 border-2 border-black font-bold hover:bg-gray-50 transition-colors group">
+                    <FcGoogle className="text-2xl group-hover:scale-110 transition-transform" />
+                    <span className="text-sm">Sign In with Google</span>
+                  </button>
+                </div>
+
+                <p className="mt-8 text-[10px] text-gray-400 text-center leading-relaxed font-medium">
+                  By signing up, you agree to our{" "}
+                  <span className="text-black underline cursor-pointer">
+                    Terms
+                  </span>{" "}
+                  and{" "}
+                  <span className="text-black underline cursor-pointer">
+                    Privacy Policy
+                  </span>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}*/}
+
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { FcGoogle } from "react-icons/fc";
+import Link from 'next/link';
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    setLoading(false);
+
+    if (result?.error) {
+      setError(result.error);
+      return;
+    }
+
+    // Success → force session sync & redirect
+    router.refresh(); // Re-renders server components with fresh session
+    router.push('/');
+  }
+
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-white selection:bg-black selection:text-white p-4 sm:p-8 relative overflow-hidden">
+      <div
+        className="absolute inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(#000 1px, transparent 1px)`,
+          backgroundSize: "30px 30px",
+        }}
+      ></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-gray-100 rounded-full blur-[120px] z-0"></div>
+
+      <div className="relative z-10 w-full max-w-5xl bg-white border-2 border-primary shadow-[12px_12px_0px_0px] shadow-primary flex flex-col lg:flex-row overflow-hidden">
+        <div className="lg:w-5/12 bg-primary p-8 lg:p-12 flex flex-col justify-between text-white">
+          <div>
+            <h1 className="text-5xl lg:text-6xl font-black tracking-tighter leading-none mb-6">
+              JOIN THE <br /> CLUB.
+            </h1>
+            <p className="text-secondary max-w-45 text-[11px] leading-none font-black uppercase tracking-tighter border-t-4 border-secondary pt-5">
+              Curated Form. <br />
+              <span className="inline-block my-1 text-secondary/60">
+                Rigorous Detail.
+              </span>{" "}
+              <br />
+              <span className="text-[10px] font-medium tracking-[0.4em] text-secondary/50 block mt-2">
+                PRIVATE ACCESS ONLY
+              </span>
+            </p>
+          </div>
+
+          <div className="hidden lg:block">
+            <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+              © 2026 Atelier Store
+            </p>
+          </div>
+        </div>
+
+        <div className="lg:w-7/12 p-8 lg:p-12">
+          <div className="flex flex-col h-full justify-center">
+            <div className="flex flex-col md:flex-row gap-10">
+              <div className="flex-1">
+                <h2 className="text-sm uppercase tracking-[0.2em] font-black mb-8 text-gray-400">
+                  Returning User
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="group border-b-2 border-gray-200 focus-within:border-black transition-colors duration-300">
+                    <label className="text-[10px] uppercase font-bold text-gray-400 group-focus-within:text-black">
+                      Email
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="hello@example.com"
+                      className="w-full pb-3 pt-1 outline-none text-lg bg-transparent placeholder:text-gray-300"
+                    />
+                  </div>
+
+                  <div className="group border-b-2 border-gray-200 focus-within:border-black transition-colors duration-300">
+                    <label className="text-[10px] uppercase font-bold text-gray-400 group-focus-within:text-black">
+                      Password
+                    </label>
+                    <input
+                      name="password"
+                      type="password"
+                      required
+                      placeholder="••••••••"
+                      className="w-full pb-3 pt-1 outline-none text-lg bg-transparent placeholder:text-gray-300"
+                    />
+                  </div>
+
+                  {error && (
+                    <p className="text-red-600 text-sm font-medium bg-red-50 p-3 rounded-lg">
+                      {error}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full mt-6 bg-primary text-white py-4 font-black uppercase tracking-widest hover:bg-gray-800 transition-all transform active:scale-[0.98] ${
+                      loading ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    {loading ? 'Signing in...' : 'Sign In'}
+                  </button>
+                </form>
+                 <p className="mt-6 text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <Link href="/register" className="text-primary font-bold hover:underline">
+                    Sign up
+                  </Link>
+                </p>
+              </div>
+
+              {/* Google & OR divider – kept as is */}
+              <div className="md:hidden flex items-center gap-4">
+                <div className="h-px bg-gray-200 flex-1"></div>
+                <span className="text-[10px] font-black text-gray-400 italic">
+                  OR
+                </span>
+                <div className="h-px bg-gray-200 flex-1"></div>
+              </div>
+
+              <div className="flex-1 flex flex-col justify-center">
+                <h2 className="hidden md:block text-sm uppercase tracking-[0.2em] font-black mb-8 text-gray-400 text-center">
+                  Quick Access
+                </h2>
+
                 <div className="space-y-4">
                   <button className="w-full flex items-center justify-center gap-3 px-6 py-4 border-2 border-black font-bold hover:bg-gray-50 transition-colors group">
                     <FcGoogle className="text-2xl group-hover:scale-110 transition-transform" />

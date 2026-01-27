@@ -1,8 +1,12 @@
-import { headers } from 'next/headers';
 import crypto from 'crypto';
 
 // Initialize transaction
-export async function initializePaystackTransaction(email: string, amount: number, reference: string) {
+export async function initializePaystackTransaction(
+  email: string, 
+  amount: number, 
+  reference: string,
+  callbackUrl?: string
+) {
   const res = await fetch('https://api.paystack.co/transaction/initialize', {
     method: 'POST',
     headers: {
@@ -13,6 +17,7 @@ export async function initializePaystackTransaction(email: string, amount: numbe
       email,
       amount, // in kobo
       reference,
+      callback_url: callbackUrl,
     }),
   });
 
@@ -38,11 +43,13 @@ export async function verifyPaystackTransaction(reference: string) {
 }
 
 // Validate webhook signature
-export function validatePaystackWebhook(request: Request) {
+export function validatePaystackWebhook(body: string, signature: string | null) {
+  if (!signature) return false;
+  
   const hash = crypto
-    .createHmac('sha512', process.env.PAYSTACK_WEBHOOK_SECRET!)
-    .update(JSON.stringify(request.body))
+    .createHmac('sha512', process.env.PAYSTACK_SECRET_KEY!)
+    .update(body)
     .digest('hex');
 
-  return hash === headers().get('x-paystack-signature');
+  return hash === signature;
 }

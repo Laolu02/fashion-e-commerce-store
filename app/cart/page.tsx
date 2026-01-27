@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth';
 import CartItemComponent from '@/components/CartItem';
 import Link from 'next/link';
 import { Lock } from 'lucide-react';
+import EmptyCart from '@/components/EmptyCart';
 
 export default async function Cart() {
   const session = await auth();
@@ -51,7 +52,7 @@ export default async function Cart() {
     include: { items: { include: { product: true } } },
   });
 
-  if (!cart || cart.items.length === 0) return <p>Cart is empty.</p>;
+  if (!cart || cart.items.length === 0) return <EmptyCart />;
 
   const subtotal = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 

@@ -1,4 +1,6 @@
-import { FcGoogle } from "react-icons/fc";
+'use client';
+
+{/*import { FcGoogle } from "react-icons/fc";
 import { registerAction } from '@/app/actions/auth';
 
 export default function RegisterPage() {
@@ -103,6 +105,223 @@ export default function RegisterPage() {
                 </h2>
                 <div className="space-y-4">
                   <button className="w-full flex items-center justify-center gap-3 px-6 py-4 border-2 border-black font-bold hover:bg-gray-50 transition-colors group">
+                    <FcGoogle className="text-2xl group-hover:scale-110 transition-transform" />
+                    <span className="text-sm">Sign Up with Google</span>
+                  </button>
+                </div>
+
+                <p className="mt-8 text-[10px] text-gray-400 text-center leading-relaxed font-medium">
+                  By signing up, you agree to our{" "}
+                  <span className="text-black underline cursor-pointer">
+                    Terms
+                  </span>{" "}
+                  and{" "}
+                  <span className="text-black underline cursor-pointer">
+                    Privacy Policy
+                  </span>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}*/}
+// app/register/page.tsx
+
+import { useState } from 'react';
+import { FcGoogle } from "react-icons/fc";
+import { registerAction } from '@/app/actions/auth';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
+export default function RegisterPage() {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const result = await registerAction(formData);
+
+      if (result?.error) {
+        setError(result.error);
+        setLoading(false);
+        return;
+      }
+
+      // Immediately sign in after successful registration
+      const signInResult = await signIn("credentials", {
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+        redirect: false,
+      });
+
+      if (signInResult?.error) {
+        setError("Account created but sign-in failed. Please log in manually.");
+        setLoading(false);
+        return;
+      }
+
+      // THIS IS THE FIX THAT WORKS EVERY SINGLE TIME
+      window.location.href = "/";   // Full hard redirect → forces fresh session load
+
+      // Alternative (if you really want SPA feel and it works in your setup):
+      // setTimeout(() => {
+      //   router.replace("/");
+      //   router.refresh();
+      // }, 100);
+
+    } catch (err: any) {
+      setError("An unexpected error occurred");
+      setLoading(false);
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    setLoading(true);
+    await signIn('google', { callbackUrl: '/' });
+  }
+
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-white selection:bg-black selection:text-white p-4 sm:p-8 relative overflow-hidden">
+      <div
+        className="absolute inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(#000 1px, transparent 1px)`,
+          backgroundSize: "30px 30px",
+        }}
+      ></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-gray-100 rounded-full blur-[120px] z-0"></div>
+
+      <div className="relative z-10 w-full max-w-5xl bg-white border-2 border-primary shadow-[12px_12px_0px_0px] shadow-primary flex flex-col lg:flex-row overflow-hidden">
+        <div className="lg:w-5/12 bg-primary p-8 lg:p-12 flex flex-col justify-between text-white">
+          <div>
+            <h1 className="text-5xl lg:text-6xl font-black tracking-tighter leading-none mb-6">
+              JOIN THE <br /> CLUB.
+            </h1>
+            <p className="text-secondary max-w-45 text-[11px] leading-none font-black uppercase tracking-tighter border-t-4 border-secondary pt-5">
+              Curated Form. <br />
+              <span className="inline-block my-1 text-secondary/60">
+                Rigorous Detail.
+              </span>{" "}
+              <br />
+              <span className="text-[10px] font-medium tracking-[0.4em] text-secondary/50 block mt-2">
+                PRIVATE ACCESS ONLY
+              </span>
+            </p>
+          </div>
+
+          <div className="hidden lg:block">
+            <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+              © 2026 Atelier Store
+            </p>
+          </div>
+        </div>
+
+        <div className="lg:w-7/12 p-8 lg:p-12">
+          <div className="flex flex-col h-full justify-center">
+            <div className="flex flex-col md:flex-row gap-10">
+              <div className="flex-1">
+                <h2 className="text-sm uppercase tracking-[0.2em] font-black mb-8 text-gray-400">
+                  Welcome
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="group border-b-2 border-gray-200 focus-within:border-black transition-colors duration-300">
+                    <label className="text-[10px] uppercase font-bold text-gray-400 group-focus-within:text-black">
+                      Full Name
+                    </label>
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="John Doe"
+                      className="w-full pb-3 pt-1 outline-none text-lg bg-transparent placeholder:text-gray-300"
+                    />
+                  </div>
+
+                  <div className="group border-b-2 border-gray-200 focus-within:border-black transition-colors duration-300">
+                    <label className="text-[10px] uppercase font-bold text-gray-400 group-focus-within:text-black">
+                      Email
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="hello@example.com"
+                      className="w-full pb-3 pt-1 outline-none text-lg bg-transparent placeholder:text-gray-300"
+                    />
+                  </div>
+
+                  <div className="group border-b-2 border-gray-200 focus-within:border-black transition-colors duration-300">
+                    <label className="text-[10px] uppercase font-bold text-gray-400 group-focus-within:text-black">
+                      Password
+                    </label>
+                    <input
+                      name="password"
+                      type="password"
+                      required
+                      minLength={6}
+                      placeholder="••••••••"
+                      className="w-full pb-3 pt-1 outline-none text-lg bg-transparent placeholder:text-gray-300"
+                    />
+                  </div>
+
+                  {error && (
+                    <p className="text-red-600 text-sm font-medium bg-red-50 p-3 rounded-lg">
+                      {error}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full mt-6 bg-primary text-white py-4 font-black uppercase tracking-widest hover:bg-gray-800 transition-all transform active:scale-[0.98] ${
+                      loading ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    {loading ? 'Creating account...' : 'Create Account'}
+                  </button>
+                </form>
+
+                <p className="mt-6 text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <Link href="/login" className="text-primary font-bold hover:underline">
+                    Sign in
+                  </Link>
+                </p>
+              </div>
+
+              <div className="md:hidden flex items-center gap-4">
+                <div className="h-px bg-gray-200 flex-1"></div>
+                <span className="text-[10px] font-black text-gray-400 italic">
+                  OR
+                </span>
+                <div className="h-px bg-gray-200 flex-1"></div>
+              </div>
+
+              <div className="flex-1 flex flex-col justify Mole">
+                <h2 className="hidden md:block text-sm uppercase tracking-[0.2em] font-black mb-8 text-gray-400 text-center">
+                  Quick Access
+                </h2>
+
+                <div className="space-y-4">
+                  <button 
+                    type="button"
+                    onClick={handleGoogleSignIn}
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-3 px-6 py-4 border-2 border-black font-bold hover:bg-gray-50 transition-colors group disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
                     <FcGoogle className="text-2xl group-hover:scale-110 transition-transform" />
                     <span className="text-sm">Sign Up with Google</span>
                   </button>
