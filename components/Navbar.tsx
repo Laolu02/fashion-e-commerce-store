@@ -108,30 +108,28 @@ export default function Navbar({ peculiarItemsCount = 0 }: NavbarProps) {
                         )}
                       </div>
                       {session.user?.role === "ADMIN" && (
-  <Link
-    href="/admin"
-    className="flex items-center justify-between px-4 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-primary hover:bg-neutral-50 transition-all border-b border-primary/10 group"
-    onClick={() => setIsUserMenuOpen(false)}
-  >
-    <span className="group-hover:translate-x-1 transition-transform">
-      Admin_Protocol
-    </span>
-    <ShieldCheck className="w-3 h-3 text-primary/40 group-hover:text-primary transition-colors" />
-  </Link>
-)}
+                        <Link
+                          href="/admin"
+                          className="flex items-center justify-between px-4 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-primary hover:bg-neutral-50 transition-all border-b border-primary/10 group"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <span className="group-hover:translate-x-1 transition-transform">
+                            Admin_Protocol
+                          </span>
+                          <ShieldCheck className="w-3 h-3 text-primary/40 group-hover:text-primary transition-colors" />
+                        </Link>
+                      )}
 
-{/* Orders */}
-<Link
-  href="/orders"
-  className="flex items-center justify-between px-4 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-primary/60 hover:bg-neutral-50 transition-all group"
-  onClick={() => setIsUserMenuOpen(false)}
->
-  <span className="group-hover:translate-x-1 transition-transform">
-    Manifest_History
-  </span>
-  <ArrowUpRight className="w-3 h-3 opacity-30 group-hover:opacity-100 transition-all" />
-</Link>
-
+                      {/* For Orders */}
+                      <Link
+                        href="/"
+                        className="flex items-center justify-between px-4 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-primary/60 hover:bg-neutral-50 transition-all group"
+                      >
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          Manifest_History
+                        </span>
+                        <ArrowUpRight className="w-3 h-3 opacity-30 group-hover:opacity-100 transition-all" />
+                      </Link>
                       <button
                         onClick={() => signOut()}
                         className="w-full flex items-center gap-3 px-4 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-red-600 border-t border-primary/10 hover:bg-red-50 transition-all text-left group"
