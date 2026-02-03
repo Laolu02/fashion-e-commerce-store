@@ -172,8 +172,7 @@ export default function RegisterPage() {
         return;
       }
 
-      // THIS IS THE FIX THAT WORKS EVERY SINGLE TIME
-      window.location.href = "/";   // Full hard redirect → forces fresh session load
+      window.location.href = "/";  
 
       // Alternative (if you really want SPA feel and it works in your setup):
       // setTimeout(() => {

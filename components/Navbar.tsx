@@ -71,8 +71,8 @@ export default function Navbar({ peculiarItemsCount = 0 }: NavbarProps) {
               </Link>
             </div>
             <div className="hidden lg:block">
-              <Link href="/products" className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/40 hover:text-primary transition-all">
-                Collection
+              <Link href="/products" className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/60 hover:text-primary transition-all">
+                Products
               </Link>
             </div>
 
@@ -98,6 +98,33 @@ export default function Navbar({ peculiarItemsCount = 0 }: NavbarProps) {
                   >
                     {session.user?.name?.[0]?.toUpperCase()}
                   </button>
+                  {isUserMenuOpen && (
+                    <>
+                      <div className="fixed inset-0 z-20" onClick={() => setIsUserMenuOpen(false)} />
+                      <div className="absolute right-0 mt-4 w-64 bg-white border-2 border-primary shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] z-30 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="p-4 border-b border-primary/10 bg-neutral-50">
+                          <p className="text-[8px] font-mono font-black text-primary/30 uppercase tracking-[.4em] mb-1">Active_Identity</p>
+                          <p className="text-[11px] font-black uppercase tracking-tight truncate text-primary">{session.user?.name}</p>
+                          <p className="text-[9px] font-mono text-primary/40 truncate">{session.user?.email}</p>
+                        </div>
+                        <div className="flex flex-col">
+                          {session.user?.role === "ADMIN" && (
+                            <Link href="/admin" onClick={() => setIsUserMenuOpen(false)} className="flex items-center justify-between px-4 py-3 text-[10px] font-black uppercase tracking-[.2em] hover:bg-primary hover:text-white transition-all group">
+                              <span>Admin_Control_Panel</span>
+                              <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </Link>
+                          )}
+                          <Link href="/orders" onClick={() => setIsUserMenuOpen(false)} className="flex items-center justify-between px-4 py-3 text-[10px] font-black uppercase tracking-[.2em] border-t border-primary/5 hover:bg-neutral-50 transition-all">
+                            Order_History
+                          </Link>
+                          <button onClick={() => { setIsUserMenuOpen(false); signOut(); }} className="flex items-center gap-3 px-4 py-4 text-[10px] font-black uppercase tracking-[0.3em] text-red-600 border-t border-primary hover:bg-red-50 transition-all text-left w-full">
+                            <LogOut size={12} />
+                            <span>Terminate_Session_</span>
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <><div className="flex items-center gap-2">
