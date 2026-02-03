@@ -138,7 +138,7 @@ export default function CategoryTabs({
         {activeProducts.length > 0 && (
           <div className="text-center mt-16">
             <Link
-              href={`/products?category=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
+              href={`/products?search=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
               className="inline-block bg-primary text-neutral px-10 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               View All {tabs.find((t) => t.id === activeTab)?.name} Products
