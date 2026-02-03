@@ -71,8 +71,8 @@ export default function Navbar({ peculiarItemsCount = 0 }: NavbarProps) {
               </Link>
             </div>
             <div className="hidden lg:block">
-              <Link href="/products" className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/40 hover:text-primary transition-all">
-                Collection
+              <Link href="/products" className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/60 hover:text-primary transition-all">
+                Products
               </Link>
             </div>
 

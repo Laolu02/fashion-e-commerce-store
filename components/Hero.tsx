@@ -58,7 +58,7 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
   if (!products || products.length === 0) {
     return (
       <div className="">
-        <section className="bg-gradient-to-b from-accent to-background py-24 text-center">
+        <section className="bg-linear-to-b from-accent to-background py-24 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Timeless Fashion, Modern Style</h1>
           <p className="text-xl text-secondary max-w-2xl mx-auto mb-10">
             Discover curated pieces that blend comfort and elegance
@@ -76,7 +76,7 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
 
   return (
     <div className="">
-      <section className="relative bg-gradient-to-b from-accent to-background py-2 overflow-hidden">
+      <section className="relative bg-linear-to-b from-accent to-background py-2 overflow-hidden">
         {/* Carousel Container */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
@@ -90,7 +90,7 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-accent/80 to-background/90" />
+                    <div className="absolute inset-0 bg-linear-to-b from-accent/80 to-background/90" />
                   </div>
 
                   {/* Content */}
@@ -99,46 +99,46 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
                       {/* Left Side - Text Content */}
                       <div className="text-center md:text-left">
                         <div className="mb-4">
-                          <span className="inline-block bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium">
-                            {product.category}
+                          <span className="inline-block bg-primary/20 text-primary px-4 py-1 text-[10px] font-mono font-black uppercase tracking-[0.3em]">
+                            {product.category}_
                           </span>
                         </div>
                         
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6 text-primary">
                           {product.name}
                         </h1>
                         
-                        <p className="text-xl text-secondary max-w-2xl mb-6">
-                          {product.description}
+                        <p className="text-[13px] font-medium uppercase tracking-widest text-secondary max-w-2xl mb-6 italic leading-relaxed">
+                          "{product.description}"
                         </p>
                         
-                        <div className="text-3xl font-bold text-primary mb-8">
+                        <div className="text-3xl font-black text-primary mb-8 tracking-tighter">
                           {product.price}
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                           <Link 
                             href={`/products/${product.id}`}
-                            className="inline-block bg-primary text-neutral px-10 py-4 rounded-lg text-lg font-medium hover:bg-gray-800 transition"
+                            className="inline-block bg-primary text-white px-10 py-4 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-black transition-all active:translate-y-1"
                           >
-                            View Product
+                            View_Entry
                           </Link>
                           <Link 
                             href="/products"
-                            className="inline-block border-2 border-primary text-primary px-10 py-4 rounded-lg text-lg font-medium hover:bg-primary hover:text-neutral transition"
+                            className="inline-block border-2 border-primary text-primary px-10 py-4 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-primary hover:text-white transition-all active:translate-y-1"
                           >
-                            Shop Collection
+                            Shop_Archive
                           </Link>
                         </div>
                       </div>
 
                       {/* Right Side - Product Image */}
                       <div className="relative">
-                        <div className="relative h-[400px] md:h-[500px]">
+                        <div className="relative h-100 md:h-125">
                           <img
                             src={product.imageUrl}
                             alt={product.name}
-                            className="w-full h-full object-cover rounded-2xl shadow-2xl"
+                            className="w-full h-full object-cover shadow-2xl"
                           />
                         </div>
                       </div>
@@ -177,10 +177,10 @@ export default function HeroCarousel({ products }: HeroCarouselProps) {
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`h-3 rounded-full transition-all ${
+              className={`transition-all ${
                 index === selectedIndex 
-                  ? 'bg-primary w-8' 
-                  : 'bg-gray-400 w-3 hover:bg-gray-500'
+                  ? 'bg-primary w-8 h-0.5' 
+                  : 'bg-gray-400 w-3 h-0.5 hover:bg-gray-500'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
