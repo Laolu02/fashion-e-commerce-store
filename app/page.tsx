@@ -3,7 +3,7 @@ import ProductCard from '@/components/ProductCard';
 import Link from 'next/link';
 import HeroCarousel from '@/components/Hero';
 import CategoryTabs from '@/components/CategoryTab';
-import { Truck, ShieldCheck, Award } from "lucide-react";
+import { Truck, ShieldCheck, Award, ArrowUpRight } from "lucide-react";
 
 export default async function Home() {
   // Fetch featured products for hero carousel
@@ -59,20 +59,27 @@ export default async function Home() {
       </main>
 
       {/* Featured Products Section */}
-      <section className="py-16 bg-accent/20">
-        <div className="max-w-7xl mx-auto px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Featured Products</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <section className="py-24 bg-white">
+        <div className="max-w-362.5 mx-auto px-6 lg:px-10">
+          <div className="flex flex-col md:flex-row justify-between items-baseline mb-16 border-b border-primary/10 pb-8">
+            <div className="space-y-1">
+              <h2 className="text-5xl md:text-6xl font-black text-primary uppercase tracking-tighter">
+                Featured_Selection<span className="text-primary/20 italic">_</span>
+              </h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.slice(0, 4).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="text-center mt-12">
+          <div className="mt-20 flex justify-center">
             <Link
               href="/products"
-              className="inline-block bg-primary text-neutral px-10 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-all duration-300"
+              className="px-12 py-5 border-2 border-primary text-primary text-[11px] font-black uppercase tracking-[0.5em] hover:bg-primary hover:text-white transition-all text-center"
             >
-              View All Products
+              Full_Archive_Load
             </Link>
           </div>
         </div>
@@ -86,65 +93,104 @@ export default async function Home() {
       />
 
       {/* Why Shop With Us Section - Improved Modern Design */}
-<section className="py-20 bg-accent">
-  <div className="max-w-7xl mx-auto px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Why Shop With Us
-      </h2>
-      <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-        Experience seamless shopping with trusted services that put you first
-      </p>
-    </div>
-
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-      {/* Fast Delivery */}
-      <div className="group relative bg-card bg-background rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-border/50">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="mb-6 p-5 bg-primary/10 rounded-full group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-            <Truck className="w-12 h-12 text-gray-600" />
+      <section className="py-24 bg-accent border-y border-primary/10">
+        <div className="max-w-362.5 mx-auto px-6 lg:px-10">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+            <div className="space-y-2">
+              <p className="text-[11px] font-mono font-black text-primary/30 uppercase tracking-[.5em]">
+                Service_Protocols
+              </p>
+              <h2 className="text-5xl md:text-7xl font-black text-primary uppercase tracking-tighter leading-none">
+                Archive_Standards
+                <span className="text-primary/10 italic">_</span>
+              </h2>
+            </div>
+           <div className="max-w-xs md:text-right">
+              <p className="text-[11px] font-medium text-primary/60 uppercase tracking-widest italic leading-relaxed">
+                "Committed to the preservation of quality through specialized
+                distribution networks."
+              </p>
+              <p className="text-[9px] font-mono font-bold text-primary/30 uppercase tracking-[0.2em] mt-4">
+                Experience seamless shopping with trusted services that put you first
+              </p>
+            </div>
           </div>
-          <h3 className="text-2xl font-semibold mb-3 text-foreground">Fast Delivery</h3>
-          <p className="text-gray-600 leading-relaxed">
-            Quick and reliable shipping across Nigeria with real-time tracking
-          </p>
-        </div>
-      </div>
 
-      {/* Secure Payment */}
-      <div className="group relative bg-card bg-background rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-border/50">
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="mb-6 p-5 bg-primary/10 rounded-full group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-            <ShieldCheck className="w-12 h-12 text-gray-600" />
-          </div>
-          <h3 className="text-2xl font-semibold mb-3 text-foreground">Secure Payment</h3>
-          <p className="text-gray-600 leading-relaxed">
-            Safe and encrypted transactions powered by Paystack – shop with confidence
-          </p>
-        </div>
-      </div>
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-l border-primary/20">
+            <div className="group relative bg-accent p-10 border-r border-b border-primary/20 transition-all duration-500 hover:bg-white overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-12">
+                  <div className="p-4 border border-primary/10 group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <Truck className="w-8 h-8" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[10px] font-mono font-black text-primary/20 group-hover:text-primary/40 transition-colors">
+                    [ _01 ]
+                  </span>
+                </div>
 
-      {/* Quality Products */}
-      <div className="group relative bg-card bg-background rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-border/50">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="mb-6 p-5 bg-primary/10 rounded-full group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-            <Award className="w-12 h-12 text-gray-600" />
+                <h3 className="text-2xl font-black mb-4 text-primary uppercase tracking-tighter group-hover:italic transition-all">
+                  Fast Delivery
+                </h3>
+                <p className="text-[12px] text-primary/60 uppercase tracking-wider leading-relaxed font-medium">
+                  Quick and reliable shipping across Nigeria with real-time
+                  tracking
+                </p>
+              </div>
+            </div>
+
+            {/* 02. Secure Payment */}
+            <div className="group relative bg-accent p-10 border-r border-b border-primary/20 transition-all duration-500 hover:bg-white overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-12">
+                  <div className="p-4 border border-primary/10 group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <ShieldCheck className="w-8 h-8" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[10px] font-mono font-black text-primary/20 group-hover:text-primary/40 transition-colors">
+                    [ _02 ]
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-black mb-4 text-primary uppercase tracking-tighter group-hover:italic transition-all">
+                  Secure Payment
+                </h3>
+                <p className="text-[12px] text-primary/60 uppercase tracking-wider leading-relaxed font-medium">
+                  Safe and encrypted transactions powered by Paystack – shop
+                  with confidence
+                </p>
+              </div>
+            </div>
+
+            {/* 03. Premium Quality */}
+            <div className="group relative bg-accent p-10 border-r border-b border-primary/20 transition-all duration-500 hover:bg-white overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-12">
+                  <div className="p-4 border border-primary/10 group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <Award className="w-8 h-8" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[10px] font-mono font-black text-primary/20 group-hover:text-primary/40 transition-colors">
+                    [ _03 ]
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-black mb-4 text-primary uppercase tracking-tighter group-hover:italic transition-all">
+                  Premium Quality
+                </h3>
+                <p className="text-[12px] text-primary/60 uppercase tracking-wider leading-relaxed font-medium">
+                  Stringent archival standards for handpicked garments and
+                  premium aesthetic artifacts.
+                </p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-2xl font-semibold mb-3 text-foreground">Premium Quality</h3>
-          <p className="text-gray-600 leading-relaxed">
-            Handpicked collection of authentic, high-quality fashion items
-          </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
     </div>
   );
 }
