@@ -52,33 +52,35 @@ export default function CategoryTabs({
   return (
     <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-4xl font-bold text-center mb-12">Shop by Category</h2>
+        <h2 className="text-5xl font-black text-center mb-12 uppercase tracking-tighter text-primary">
+          Shop by Category<span className="opacity-20 italic">_</span>
+        </h2>
 
-        {/* Tab Navigation - Full-width, no gaps */}
+        {/* Tab Navigation  */}
         <div className="flex justify-center mb-12 -mx-8">
-          <div className="inline-flex rounded-xl overflow-hidden shadow-lg border border-border">
+          <div className="inline-flex border border-primary overflow-hidden">
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center gap-3 px-10 py-5 font-semibold text-lg transition-all duration-300 ${
+                  className={`flex-1 flex items-center justify-center gap-3 px-10 py-5 font-black text-[11px] uppercase tracking-[0.3em] transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-primary text-neutral'
-                      : 'bg-neutral text-primary hover:bg-accent'
-                  } ${index !== tabs.length - 1 ? '' : ''}`}
+                      ? 'bg-primary text-white'
+                      : 'bg-white text-primary hover:bg-neutral-50'
+                  } ${index !== tabs.length - 1 ? 'border-r border-primary' : ''}`}
                 >
-                  <Icon size={28} strokeWidth={2} />
+                  <Icon size={18} strokeWidth={2.5} />
                   <span>{tab.name}</span>
                   <span
-                    className={`ml-2 px-3 py-1 rounded-full text-sm font-medium ${
+                    className={`ml-2 font-mono text-[9px] ${
                       activeTab === tab.id
-                        ? 'bg-white/20'
-                        : 'bg-primary/10 text-primary'
+                        ? 'text-white/40'
+                        : 'text-primary/30'
                     }`}
                   >
-                    {tab.products.length}
+                    ({tab.products.length.toString().padStart(2, '0')})
                   </span>
                 </button>
               );
@@ -86,12 +88,12 @@ export default function CategoryTabs({
           </div>
         </div>
 
-        {/* Product Grid */}
+        {/* Product Grid  */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {activeProducts.length === 0 ? (
-            <div className="col-span-full text-center py-16">
-              <p className="text-xl text-muted">
-                No products available in this category yet.
+            <div className="col-span-full text-center py-20 border-2 border-dashed border-primary/10">
+              <p className="text-[10px] font-mono uppercase tracking-[0.5em] text-primary/30">
+                No_Artifacts_Found_In_Directory
               </p>
             </div>
           ) : (
@@ -99,33 +101,33 @@ export default function CategoryTabs({
               <Link
                 key={product.id}
                 href={`/products/${product.id}`}
-                className="group block bg-neutral rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-3"
+                className="group block bg-white border border-primary/10 hover:border-primary transition-all duration-500"
               >
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-80 overflow-hidden bg-neutral-50">
                   <img
                     src={product.imageUrl}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                   />
-                  <div className="absolute top-4 right-4 bg-primary text-neutral px-4 py-2 rounded-full font-bold">
+                  <div className="absolute top-0 right-0 bg-primary text-white px-4 py-2 font-black text-[10px] tracking-widest">
                     {product.price}
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
+                  <h3 className="text-xl font-black mb-2 uppercase tracking-tighter text-primary group-hover:italic transition-all line-clamp-1">
                     {product.name}
                   </h3>
-                  <p className="text-muted text-sm line-clamp-2 mb-4">
-                    {product.description}
+                  <p className="text-primary/60 text-[11px] uppercase tracking-widest leading-relaxed line-clamp-2 mb-6 italic">
+                    "{product.description}"
                   </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs uppercase tracking-wider text-muted bg-accent px-4 py-2 rounded-full">
-                      {product.category}
+                  <div className="flex items-center justify-between pt-4 border-t border-primary/5">
+                    <span className="text-[9px] font-mono font-black text-primary/30 uppercase tracking-[0.3em]">
+                      {product.category}_
                     </span>
-                    <span className="text-primary font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                      View Details
-                      <span>→</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary flex items-center gap-2">
+                      View_Details
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                   </div>
                 </div>
@@ -138,10 +140,10 @@ export default function CategoryTabs({
         {activeProducts.length > 0 && (
           <div className="text-center mt-16">
             <Link
-              href={`/products?category=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
-              className="inline-block bg-primary text-neutral px-10 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+              href={`/products?search=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
+              className="inline-block bg-primary text-white px-12 py-5 text-[11px] font-black uppercase tracking-[0.5em] hover:bg-black transition-all"
             >
-              View All {tabs.find((t) => t.id === activeTab)?.name} Products
+              View_Full_{activeTab}_Archive
             </Link>
           </div>
         )}

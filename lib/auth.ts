@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google"
 import bcrypt from 'bcryptjs';
 import prisma from './prisma';
 import { Role } from '@prisma/client';
@@ -16,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
+          where: { email: credentials?.email as string },
         });
 
         if (!user || !user.password) return null;
@@ -27,6 +28,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return { id: user.id, name: user.name, email: user.email, role: user.role };
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   pages: {
