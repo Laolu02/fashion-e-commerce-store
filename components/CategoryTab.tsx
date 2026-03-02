@@ -140,7 +140,7 @@ export default function CategoryTabs({
         {activeProducts.length > 0 && (
           <div className="text-center mt-16">
             <Link
-              href={`/products?category=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
+              href={`/products?search=${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
               className="inline-block bg-primary text-white px-12 py-5 text-[11px] font-black uppercase tracking-[0.5em] hover:bg-black transition-all"
             >
               View_Full_{activeTab}_Archive
