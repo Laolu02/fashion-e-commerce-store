@@ -5,7 +5,6 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { Plus, Trash2, Hash, Package, ReceiptText, Edit3, X, Database, ChevronDown } from 'lucide-react';
-import { ProductCategory } from '@prisma/client';
 import Link from 'next/link';
 
 export default async function Admin({
@@ -27,7 +26,7 @@ export default async function Admin({
     : null;
 
 
-  const categories = Object.values(ProductCategory);
+const categories = ['MEN', 'WOMEN', 'ACCESSORIES'] as const;
 
   async function addProduct(formData: FormData) {
     'use server';
