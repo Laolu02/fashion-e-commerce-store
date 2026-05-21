@@ -53,3 +53,19 @@ export function validatePaystackWebhook(body: string, signature: string | null) 
 
   return hash === signature;
 }
+
+export async function verifyPaystackTransaction(reference: string) {
+  const res = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+    },
+  });
+
+  const data = await res.json();
+  console.log('Paystack verify response:', JSON.stringify(data)); // 👈 add this
+
+  if (!res.ok) throw new Error(`Failed to verify transaction: ${JSON.stringify(data)}`);
+
+  return data.data;
+}
