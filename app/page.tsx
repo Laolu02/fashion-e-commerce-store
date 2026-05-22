@@ -63,9 +63,9 @@ export default async function Home() {
         <div className="max-w-362.5 mx-auto px-6 lg:px-10">
           <div className="flex flex-col md:flex-row justify-between items-baseline mb-16 border-b border-primary/10 pb-8">
             <div className="space-y-1">
-              <h2 className="text-5xl md:text-6xl font-black text-primary uppercase tracking-tighter">
-                Featured_Selection<span className="text-primary/20 italic">_</span>
-              </h2>
+             <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-primary uppercase tracking-tighter">
+  Featured_<br className="md:hidden" />Selection<span className="text-primary/20 italic">_</span>
+</h2>
             </div>
           </div>
 
