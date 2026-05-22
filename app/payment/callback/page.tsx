@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation';
 import { verifyPaystackTransaction } from '@/lib/paystack';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
+import CartRefresh from '@/components/CartRefresh';
+
 
 interface PageProps {
   searchParams: Promise<{
@@ -62,6 +64,7 @@ export default async function PaymentCallback({ searchParams }: PageProps) {
   if (paymentStatus === 'success' && order) {
     return (
       <div className="min-h-screen bg-[#F5F5F5] py-12 px-4 flex flex-col items-center justify-center font-mono">
+         <CartRefresh />
         <div className="w-full max-w-2xl bg-white p-8 lg:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative border-t-8 border-green-600">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
